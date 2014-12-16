@@ -57,3 +57,9 @@ dep:
 
 include .depend
 
+docker:
+	docker build -t texgenpack .
+
+kodim01.dds: docker kodim01.png
+	rm -f kodim01.dds
+	docker run -ti --rm -v `pwd`/kodim01.png:/tmp/kodim01.png -v `pwd`:/data:rw texgenpack --compress --format dxt1 /tmp/kodim01.png /data/kodim01.dds
